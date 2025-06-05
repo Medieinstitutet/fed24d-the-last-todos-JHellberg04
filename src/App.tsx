@@ -2,10 +2,19 @@ import "./App.css";
 import { TodoList } from "./components/TodoList";
 import { initialTodos } from "./data/initialTodos";
 import type { ITodo } from "./types/todo";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [todos, setTodos] = useState<ITodo[]>(initialTodos);
+  const [todos, setTodos] = useState<ITodo[]>(() => {
+    const stored = localStorage.getItem("todos")
+    console.log("Retrieved from localStorage:", stored);
+    return stored ? JSON.parse(stored) : initialTodos
+  });
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+    console.log("Saving to localStorage:", todos);
+  }, [todos])
 
   const toggleDone = (id: number) => {
     setTodos((prevTodos) =>
