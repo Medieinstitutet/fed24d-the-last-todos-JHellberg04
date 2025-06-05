@@ -8,22 +8,36 @@ function App() {
   const [todos, setTodos] = useState<ITodo[]>(initialTodos);
 
   const toggleDone = (id: number) => {
-    setTodos(prevTodos =>
-      prevTodos.map(todo =>
-        todo.id === id ? {...todo, isDone: !todo.isDone } : todo
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
       )
-    )
-  }
+    );
+  };
 
-  const activeTodos = todos.filter(todo => !todo.isDone);
-  const completedTodos = todos.filter(todo => todo.isDone);
+  const deleteTodo = (id: number) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+  };
 
-  return <>
-  <h2>Att göra</h2>
-    <TodoList todos={activeTodos} onToggleDone={toggleDone} />
-  <h2>Avklarat</h2>
-    <TodoList todos={completedTodos} onToggleDone={toggleDone} />
-  </>;
+  const activeTodos = todos.filter((todo) => !todo.isDone);
+  const completedTodos = todos.filter((todo) => todo.isDone);
+
+  return (
+    <>
+      <h2>Att göra</h2>
+      <TodoList
+        todos={activeTodos}
+        onToggleDone={toggleDone}
+        onDelete={deleteTodo}
+      />
+      <h2>Avklarat</h2>
+      <TodoList
+        todos={completedTodos}
+        onToggleDone={toggleDone}
+        onDelete={deleteTodo}
+      />
+    </>
+  );
 }
 
 export default App;
