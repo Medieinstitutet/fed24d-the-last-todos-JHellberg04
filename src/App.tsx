@@ -5,7 +5,7 @@ import type { ITodo } from "./types/todo";
 import { useState } from "react";
 
 function App() {
-  const [todos, setTodos] = useState<ITodo[]>(initialTodos)
+  const [todos, setTodos] = useState<ITodo[]>(initialTodos);
 
   const toggleDone = (id: number) => {
     setTodos(prevTodos =>
@@ -14,8 +14,15 @@ function App() {
       )
     )
   }
+
+  const activeTodos = todos.filter(todo => !todo.isDone);
+  const completedTodos = todos.filter(todo => todo.isDone);
+
   return <>
-  <TodoList todos={todos} onToggleDone={toggleDone} />
+  <h2>Att göra</h2>
+    <TodoList todos={activeTodos} onToggleDone={toggleDone} />
+  <h2>Avklarat</h2>
+    <TodoList todos={completedTodos} onToggleDone={toggleDone} />
   </>;
 }
 
