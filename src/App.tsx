@@ -3,6 +3,7 @@ import { TodoList } from "./components/TodoList";
 import { initialTodos } from "./data/initialTodos";
 import type { ITodo } from "./types/todo";
 import { useState, useEffect } from "react";
+import { AddTodo } from "./components/AddTodoForm";
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>(() => {
@@ -15,6 +16,10 @@ function App() {
     localStorage.setItem("todos", JSON.stringify(todos))
     console.log("Saving to localStorage:", todos);
   }, [todos])
+
+  const addTodo = (newTodo: ITodo) => {
+    setTodos(prev => [...prev, newTodo])
+  }
 
   const toggleDone = (id: number) => {
     setTodos((prevTodos) =>
@@ -33,6 +38,7 @@ function App() {
 
   return (
     <>
+      <AddTodo onAdd={addTodo} />
       <h2>Att göra</h2>
       <TodoList
         todos={activeTodos}
