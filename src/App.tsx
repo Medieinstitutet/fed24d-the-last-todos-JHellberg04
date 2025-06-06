@@ -47,30 +47,38 @@ function App() {
   const completedTodos = sortedTodos.filter((todo) => todo.isDone);
 
   return (
-    <>
-      <h1>Att göra lista</h1>
+    <div className="max-w-2xl  mx-auto p-4 bg-white rounded-2xl shadow-lg">
+      <h1 className="text-5xl uppercase font-bold text-center text-blue-500 mb-6 pb-4">Att göra lista</h1>
       <AddTodo onAdd={addTodo} />
-      <h2>Att göra</h2>
-      <label>
-        Sortera:
-        <select value={sortOption} onChange={e => setSortOption(e.target.value as "newest" | "abc")}>
-          <option value="oldest">Äldst först</option>
-          <option value="newest">Nyast först</option>
-          <option value="abc">A-Ö</option>
-        </select>
+      <div className="mt-8">
+      <h2 className="text-3xl uppercase font-semibold text-gray-800 mb-4">Att göra</h2>
+      <label className="block mb-4">
+      <span className="text-gray-700">Sortera:</span>
+      <select
+      value={sortOption}
+      onChange={(e) => setSortOption(e.target.value as "newest" | "abc")}
+      className="ml-2 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
+      >
+      <option value="oldest">Äldst först</option>
+      <option value="newest">Nyast först</option>
+      <option value="abc">A-Ö</option>
+      </select>
       </label>
       <TodoList
-        todos={activeTodos}
-        onToggleDone={toggleDone}
-        onDelete={deleteTodo}
+      todos={activeTodos}
+      onToggleDone={toggleDone}
+      onDelete={deleteTodo}
       />
-      <h2>Avklarat</h2>
+      </div>
+      <div className="mt-8">
+      <h2 className="text-3xl uppercase font-semibold text-gray-800 mb-4">Avklarat</h2>
       <TodoList
-        todos={completedTodos}
-        onToggleDone={toggleDone}
-        onDelete={deleteTodo}
+      todos={completedTodos}
+      onToggleDone={toggleDone}
+      onDelete={deleteTodo}
       />
-    </>
+      </div>
+    </div>
   );
 }
 

@@ -8,10 +8,15 @@ interface IProps {
 }
 export function TodoList({ todos, onToggleDone, onDelete }: IProps) {
   return (
-    <ul>
-      {todos.map(todo => (
-        <TodoItem key={todo.id} todo={todo} onToggleDone={onToggleDone} onDelete={onDelete} />
+    <ul className="space-y-4">
+      {todos.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onToggleDone={onToggleDone}
+          onDelete={onDelete}
+        />
       ))}
     </ul>
-  )
+  );
 }
